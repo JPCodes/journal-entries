@@ -19,15 +19,32 @@ Entry.prototype.entry_length = function(entry_body) {
 
 Entry.prototype.count_vowels = function() {
   vowel_count = 0;
-  debugger;
   this.body.toLowerCase().split("").forEach(function(element) {
-    debugger;
     if ((/[aeiou]/).test(element)) {
-    debugger;
       vowel_count++;
     }
   });
   return vowel_count;
+};
+
+Entry.prototype.count_consonants = function() {
+  consonant_count = 0;
+  this.body.toLowerCase().split("").forEach(function(element) {
+    if ((/[aeiou]/).test(element)) {}
+    else {
+      consonant_count++;
+    }
+  });
+  return consonant_count;
+};
+
+Entry.prototype.getTeaser = function() {
+  var firstEight = [];
+  var sentence = this.body.split(" ");
+  for (i = 0; i < 8; i++) {
+    firstEight.push(sentence[i]);
+  }
+  return firstEight.join(" ");
 };
 
 find_object = function(id) {
@@ -59,7 +76,7 @@ $(document).ready(function() {
     var counter = 0;
     output.forEach(function(element) {
       counter++;
-      $('#entries').append("<li>" + element.title + "</li>" + "<li>" + element.body + "</li>" + "<button class='" + counter + " journal' type='submit'>How many words?</button>" + "<button class='" + counter + " journal-vowel' type='submit'>How many vowels?</button>");
+      $('#entries').append("<li>" + element.title + "</li>" + "<li>" + element.body + "</li>" + "<button class='" + counter + " journal' type='submit'>How many words?</button>" + "<button class='" + counter + " journal-vowel' type='submit'>How many vowels?</button>" + "<button class='" + counter + " journal-consonant' type='submit'>How many consonants?</button>" + "<button class='" + counter + " teaser' type='submit'>Get Teaser</button>");
     });
     $('.journal').click(function() {
       entrySpot = parseInt($(this).attr("class"));
@@ -73,6 +90,20 @@ $(document).ready(function() {
       var selectedEntry = find_object(entrySpot);
       var result = selectedEntry.count_vowels();
       $('#entry-attribute').append("Vowel Count: " + result);
+    });
+
+    $('.journal-consonant').click(function() {
+      entrySpot = parseInt($(this).attr("class"));
+      var selectedEntry = find_object(entrySpot);
+      var result = selectedEntry.count_consonants();
+      $('#entry-attribute').append("Consonant Count: " + result);
+    });
+
+    $('.teaser').click(function() {
+      entrySpot = parseInt($(this).attr("class"));
+      var selectedEntry = find_object(entrySpot);
+      var result = selectedEntry.getTeaser();
+      $('#entry-attribute').append("Consonant Count: " + result);
     });
   });
 });

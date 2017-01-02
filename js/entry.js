@@ -26,6 +26,26 @@ Entry.prototype.count_vowels = function() {
   return vowel_count;
 };
 
+Entry.prototype.count_consonants = function() {
+  consonant_count = 0;
+  this.body.toLowerCase().split("").forEach(function(element) {
+    if ((/[aeiou]/).test(element)) {}
+    else {
+      consonant_count++;
+    }
+  });
+  return consonant_count;
+};
+
+Entry.prototype.getTeaser = function() {
+  var firstEight = [];
+  var sentence = this.body.split(" ");
+  for (i = 0; i < 8; i++) {
+    firstEight.push(sentence[i]);
+  }
+  return firstEight.join(" ");
+};
+
 find_object = function(id) {
   var foundObject = null;
   output.forEach(function(element) {
